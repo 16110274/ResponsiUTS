@@ -85,8 +85,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Log.d("cobaCoba", String.valueOf(title));
+
+         String[] strTitle = new String[]{"Venom", "Halloween", "A Star Is Born", "Incredibles 2",
+                 "Alpha", "Night School", "Mile 22", "The Predator", "The Nun",
+                 "Johnny English Strikes Again", "First Man", "A.X.L.", "Kung Fu League",
+                 "BlacKkKlansman", "Christopher Robin", "Smallfoot", "Skyscraper", "Air Strike",
+                 "Goosebumps 2: Haunted Halloween"};
         listFilm = findViewById(R.id.list_view);
-        AdapterList adapter = new AdapterList(this, title, overview);
+        AdapterList adapter = new AdapterList(this, strTitle, overview);
         listFilm.setAdapter(adapter);
+
+        
     }
 }
