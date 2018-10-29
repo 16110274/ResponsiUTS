@@ -1,9 +1,12 @@
 package com.pramana.gilang.responsiuts;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +31,8 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private ListView listFilm;
+    public static final String EXT_TITLE = "extra_title";
+    public static final String EXT_OVERVIEW = "extra_overview";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
         AdapterList adapter = new AdapterList(this, strTitle, overview);
         listFilm.setAdapter(adapter);
 
-        
+        Button btnTitle = (Button)findViewById(R.id.btn_title);
+        btnTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(MainActivity.this, DetailActivity.class );
+                in.putExtra(EXT_TITLE, title);
+
+                startActivity(in);
+            }
+        });
     }
 }
