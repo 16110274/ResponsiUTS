@@ -30,7 +30,6 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listFilm;
     public static final String EXT_TITLE = "extra_title";
     public static final String EXT_OVERVIEW = "extra_overview";
 
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject objResponse = new JSONObject(responseData);
                     final JSONArray arrayResults = objResponse.getJSONArray("results");
 
-                    for(int i = 0 ; i<20;i++) {
+                    for(int i = 0 ; i<arrayResults.length();i++) {
                         final JSONObject objResults = new JSONObject(arrayResults.get(i).toString());
                         MainActivity.this.runOnUiThread(new Runnable() {
                             @Override
@@ -86,21 +85,12 @@ public class MainActivity extends AppCompatActivity {
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
-                //Log.d("cobaCoba", String.valueOf(title));
             }
         });
-        //Log.d("cobaCoba", String.valueOf(title));
-
-         String[] strTitle = new String[]{"Venom", "Halloween", "A Star Is Born", "Incredibles 2",
-                 "Alpha", "Night School", "Mile 22", "The Predator", "The Nun",
-                 "Johnny English Strikes Again", "First Man", "A.X.L.", "Kung Fu League",
-                 "BlacKkKlansman", "Christopher Robin", "Smallfoot", "Skyscraper", "Air Strike",
-                 "Goosebumps 2: Haunted Halloween"};
-        listFilm = findViewById(R.id.list_view);
-        AdapterList adapter = new AdapterList(this, strTitle, overview);
+        AdapterList adapter = new AdapterList(this, title, overview);
+        ListView listFilm = (ListView) findViewById(R.id.list_view);
         listFilm.setAdapter(adapter);
-
-        Button btnTitle = (Button)findViewById(R.id.btn_title);
+        /*Button btnTitle = (Button)findViewById(R.id.btn_title);
         btnTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(in);
             }
-        });
+        });*/
     }
 }
