@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayList<String> title = new ArrayList<String>();
         final ArrayList<String> overview = new ArrayList<String>();
+        final ArrayList<String> img = new ArrayList<String>();
 
         String url = "https://api.themoviedb.org/3/movie/now_playing?api_key=92d0674ae46c5b33877b1822c884894c";
 
@@ -57,41 +58,35 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                final String responseData = response.body().string();
+                String responseData = response.body().string();
                 try{
                     JSONObject objResponse = new JSONObject(responseData);
-                    final JSONArray arrayResults = objResponse.getJSONArray("results");
+                    JSONArray arrayResults = objResponse.getJSONArray("results");
 
                     for(int i = 0 ; i<arrayResults.length();i++) {
-                        final JSONObject objResults = new JSONObject(arrayResults.get(i).toString());
-                        MainActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    //int index = Integer.parseInt(objResults.get("id").toString());
-                                    String titleText = (objResults.get("title").toString());
-                                    String overviewText = (objResults.get("overview").toString());
-                                    //String urlImg = "http://image.tmdb.org/t/p/w185"+objResults.get("poster_path");
-                                    title.add(titleText);
-                                    overview.add(overviewText);
-                                    //Glide.with(MainActivity.this).load(urlImg).into(img);
+                        JSONObject objResults = new JSONObject(arrayResults.get(i).toString());
 
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
+                        String titleText = (objResults.get("title").toString());
+                        String overviewText = (objResults.get("overview").toString());
+                        String urlImg = "http://image.tmdb.org/t/p/w185"+objResults.get("poster_path");
+
+                        title.add(titleText);
+                        overview.add(overviewText);
+                        img.add(urlImg);
                     }
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
             }
         });
-        AdapterList adapter = new AdapterList(this, title, overview);
+
+        Log.d("Testing",String.valueOf(overview));
+        AdapterList adapter = new AdapterList(this, title, overview, img);
         ListView listFilm = (ListView) findViewById(R.id.list_view);
         listFilm.setAdapter(adapter);
-        /*Button btnTitle = (Button)findViewById(R.id.btn_title);
-        btnTitle.setOnClickListener(new View.OnClickListener() {
+
+        Button btnTitle = (Button)findViewById(R.id.btn_title);
+        /*btnTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(MainActivity.this, DetailActivity.class );

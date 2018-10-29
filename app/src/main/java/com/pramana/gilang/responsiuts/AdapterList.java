@@ -9,17 +9,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.model.GlideUrl;
+
 import java.util.ArrayList;
 
 public class AdapterList extends ArrayAdapter<String> {
 
+    Context context;
     ArrayList<String> title;
     ArrayList<String> overview;
+    ArrayList<String> img;
 
-    public AdapterList(Context context, ArrayList<String> title, ArrayList<String> overview) {
+    public AdapterList(Context context, ArrayList<String> title, ArrayList<String> overview, ArrayList<String> img) {
         super(context, 0, title);
         this.title = title;
         this.overview = overview;
+        this.img = img;
     }
 
     @Override
@@ -31,10 +37,11 @@ public class AdapterList extends ArrayAdapter<String> {
 
         TextView btnTitle = (TextView) view.findViewById(R.id.btn_title);
         TextView txtOverview = (TextView) view.findViewById(R.id.txt_overview);
-        //ImageView imgPoster = (ImageView) view.findViewById(R.id.img_poster);
+        ImageView imgPoster = (ImageView) view.findViewById(R.id.img_poster);
 
         btnTitle.setText(title.get(i));
         txtOverview.setText(overview.get(i));
+        Glide.with(context).load(img).into(imgPoster);
 
         return view;
     }
