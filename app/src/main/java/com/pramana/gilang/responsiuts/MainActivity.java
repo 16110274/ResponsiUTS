@@ -80,16 +80,19 @@ public class MainActivity extends AppCompatActivity {
                         overview.add(overviewText);
                         img.add(urlImg);
                     }
+
+                    AdapterList adapter = new AdapterList(MainActivity.this, title, overview, img);
+                    ListView listFilm = (ListView) findViewById(R.id.list_view);
+                    listFilm.setAdapter(adapter);
+
                 }catch (JSONException e){
                     e.printStackTrace();
                 }
             }
         });
 
-        Log.d("Testing",String.valueOf(overview));
-        AdapterList adapter = new AdapterList(this, title, overview, img);
-        ListView listFilm = (ListView) findViewById(R.id.list_view);
-        listFilm.setAdapter(adapter);
+        //Log.d("Testing",String.valueOf(overview));
+
 
         Button btnTitle = (Button)findViewById(R.id.btn_title);
         /*btnTitle.setOnClickListener(new View.OnClickListener() {
